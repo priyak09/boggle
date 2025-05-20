@@ -1,10 +1,12 @@
 
 <div class="outer-container">
 <div class="container container-items">
-  <div class="dice" (click)="captureLetter($event)" *ngFor="let letter of letterArr">{{ letter }}</div> 
+  <div class="dice" [ngClass]="{'clicked': letter.selected}" (click)="captureLetter(letter)" *ngFor="let letter of letterObjArr">{{ letter.value }}</div> 
 </div>
 <div class="word-grid container-items">
   <p class="word" *ngFor="let word of wordArr">{{ word }}</p>
 </div>
 </div>
 <button (click)="enterWord()">Enter</button>
+<button (click)="wordList()">Check score</button>
+<span>Total score: {{ totalScore }}</span>
