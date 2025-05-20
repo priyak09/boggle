@@ -29,8 +29,6 @@ export class AppComponent implements OnInit{
     let alpha = String.fromCharCode(ascii);
     let col = i%4;
     let row = Math.floor(i/4);
-    console.log(alpha);
-    // this.letterArr.push({alpha: 0});
     this.letterObjArr.push({value: alpha, selected: false, id: i, row: row, col: col}); //row and col to check adjacent
   }
   
@@ -40,7 +38,7 @@ captureLetter(letter: any) {
   if (this.prevLetter === null || (this.prevLetter?.id !== letter.id && this.checkAdjacent(letter))) {
     this.word=this.word+letter.value;
     letter.selected = true;
-    this.prevLetter = JSON.parse(JSON.stringify(letter)); //immutably copy object
+    this.prevLetter = JSON.parse(JSON.stringify(letter)); //copy object immutably
   } else {
     window.alert("Invalid letter!");
   }
