@@ -74,4 +74,11 @@ expect(res).toBeTruthy();
   component.wordList();
   expect(component.totalScore).toBe(3);
  });
+
+ it('should refresh the grid when starting new game', () => {
+    spyOn(component, 'startTimer');
+  component.refreshGrid();
+  expect(component.startTimer).toHaveBeenCalled();
+ });
+
 });

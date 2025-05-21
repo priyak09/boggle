@@ -35,6 +35,9 @@ Currently only single player is allowed to play
 - Click on the letters that you want to make a word from in the correct order.
 - After selecting the letters, click on the button 'Enter'. The word will display on the right panel.
 - Once the words are generated, click on 'Check score' to calculate the score, which will then be displayed.
+- If an invalid letter is selected, it will show an alert.
+- The game will timeout after 3 minutes and show the total score.
+- You can start a new game by clicking on the 'New game' button.
 
 
 

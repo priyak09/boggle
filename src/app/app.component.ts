@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
+import { interval, map, Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -17,10 +18,36 @@ export class AppComponent implements OnInit{
   wordArr: string[] = [];
   totalScore = 0;
   prevLetter: any = null;
+  gameEnded = false;
+  public timeLeft$;
+  private stopTimer$ = new Subject<void>();
 
+
+  constructor() {
+    let endDate = new Date();
+    endDate.setMinutes(endDate.getMinutes() + 3);   //for 3 minutes timer
+    endDate.setSeconds(endDate.getSeconds() + 2);   //to compensate for delay in loading the page
+    console.log(endDate);
+     this.timeLeft$ = interval(1000).pipe(
+      map(x => this.calcDateDiff(endDate)),
+      takeUntil(this.stopTimer$)
+    );
+    
+    
+  }
 
   ngOnInit(): void {
       this.createLetters();
+  }
+
+  startTimer() {
+    let endDate = new Date();
+    endDate.setMinutes(endDate.getMinutes() + 1);   //for 3 minutes timer
+    endDate.setSeconds(endDate.getSeconds() + 2);   //to compensate for delay in loading the page
+     this.timeLeft$ = interval(1000).pipe(
+      map(x => this.calcDateDiff(endDate)),
+      takeUntil(this.stopTimer$)
+    );
   }
 
   createLetters() {
@@ -35,13 +62,16 @@ export class AppComponent implements OnInit{
 }
 
 captureLetter(letter: any) {
+  if (!this.gameEnded) {
   if (this.prevLetter === null || (this.prevLetter?.id !== letter.id && this.checkAdjacent(letter))) {
-    this.word=this.word+letter.value;
-    letter.selected = true;
-    this.prevLetter = JSON.parse(JSON.stringify(letter)); //copy object immutably
-  } else {
-    window.alert("Invalid letter!");
+      this.word=this.word+letter.value;
+      letter.selected = true;
+      this.prevLetter = JSON.parse(JSON.stringify(letter)); //copy object immutably
+    } else {
+      window.alert("Invalid letter!");
+    }
   }
+ 
 
 }
 
@@ -63,16 +93,19 @@ checkAdjacent(letter: any) {
 }
 
 enterWord() {
+  if (!this.gameEnded) {
   if (this.word.length > 2) {
-    this.wordArr.push(this.word);
-  } else {
-    window.alert("Minimum 3 characters required");
+      this.wordArr.push(this.word);
+    } else {
+      window.alert("Minimum 3 characters required");
+    }
+    this.word="";
+    this.prevLetter = null;
+    this.letterObjArr.forEach(obj => {
+      obj.selected = false;
+    });
   }
-  this.word="";
-  this.prevLetter = null;
-  this.letterObjArr.forEach(obj => {
-    obj.selected = false;
-  })
+  
 }
 
 //Word list score function
@@ -96,6 +129,51 @@ this.wordArr.forEach((word: string) => {
     }
 });
 this.totalScore = score;
+}
+
+//code adapted from https://henrikmassow.medium.com/implement-a-countdown-timer-with-rxjs-in-angular-61600d1af00c
+calcDateDiff(endDay: any) {
+  const dDay = endDay.valueOf();
+
+  const milliSecondsInASecond = 1000;
+  const minutesInAnHour = 60;
+  const secondsInAMinute = 60;
+
+  const timeDifference = dDay - Date.now();
+
+  const minutesToDday = Math.floor(
+    (timeDifference / (milliSecondsInASecond * minutesInAnHour)) %
+      secondsInAMinute
+  );
+
+  const secondsToDday =
+    Math.floor(timeDifference / milliSecondsInASecond) % secondsInAMinute;
+if (secondsToDday === -1 && minutesToDday === -1) {  //-1 so that it doesn't stop in the last 1 second
+  window.alert("Game over!");
+   this.stopTimer$.next();
+  this.stopTimer$.complete();
+  this.wordList();
+  this.word="";
+  this.prevLetter = null;
+  this.letterObjArr.forEach(obj => {
+    obj.selected = false;
+  });
+  this.gameEnded = true;
+  
+
+} 
+return { secondsToDday, minutesToDday };
+}
+
+refreshGrid() {
+  this.gameEnded = false;
+   this.word="";
+  this.prevLetter = null;
+  this.letterObjArr = [];
+  this.wordArr = [];
+  this.totalScore = 0;
+  this.createLetters();
+  this.startTimer();
 }
 
 

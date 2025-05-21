@@ -10,3 +10,12 @@
 <button (click)="enterWord()">Enter</button>
 <button (click)="wordList()">Check score</button>
 <span>Total score: {{ totalScore }}</span>
+<button (click)="refreshGrid()"> New game </button>
+
+<div class="timer" *ngIf="(timeLeft$ | async) as t">
+	<h4> Count down timer </h4>
+	
+	<span id="minutes"> {{t.minutesToDday}} </span>Min
+	<span id="seconds"> {{t.secondsToDday}} </span>S
+</div>
+
