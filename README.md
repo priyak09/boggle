@@ -28,15 +28,16 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 ## General information
 
-There are 2 modes single player and multiplayer. Currently, multiplayer only supports 2 players. The game will timeout after 3 minutes.
+There are 2 modes: single player and multiplayer. Currently, multiplayer only supports 2 players. The game will timeout after 3 minutes.
 
 ## How to play
 
 For single player
 - Click on the letters that you want to make a word from in the correct order.
-- After selecting the letters, click on the button 'Enter'. The word will display on the right panel.
-- Once the words are generated, click on 'Check score' to calculate the score, the toal score will then be displayed.
+- After selecting the letters, click on 'Enter'. The word will display on the right panel.
+- Once the words are generated, click on 'Check score' to calculate the score, the toal score will be displayed.
 - If an invalid letter is selected, it will show an alert.
+- If 'Enter' is clicked after selecting only 2 letters, it will show an alert.
 - The game will timeout after 3 minutes and show the total score.
 - You can start a new game by clicking on the 'New game' button.
 - You can switch to the multiplayer mode by clicking on the 'Multiplayer' button.
