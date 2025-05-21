@@ -1,33 +1,71 @@
-
 <div>
   <h2>Boggle&nbsp;&#64;o&#64;</h2>
 </div>
 <div class="wrapper">
-  <div class="timer" *ngIf="(timeLeft$ | async) as t">
-  <i class="fa fa-clock-o" style="font-size:24px; margin-right: 4px;"></i>
+  <div class="timer" *ngIf="timeLeft$ | async as t">
+    <i class="fa fa-clock-o" style="font-size: 24px; margin-right: 4px"></i>
 
-	
-	<span id="minutes"> {{t.minutesToDday}} </span> :
- 	<span id="seconds"> {{t.secondsToDday}} </span>
+    <span id="minutes"> {{ t.minutesToDday }} </span> :
+    <span id="seconds"> {{ t.secondsToDday }} </span>
+  </div>
+  <div class="outer-container">
+    <div class="button-container">
+      <button class="button" (click)="enableMultiPlayer()">Multiplayer</button>
+      <button class="button" (click)="enableSinglePlayer()">
+        Single Player
+      </button>
+
+      <button class="button" (click)="enterWord()">Enter</button>
+      <button class="button" (click)="checkScore()">Check score</button>
+      <button class="button" (click)="refreshGrid()">New game</button>
+      <span *ngIf="!multiPlayer" class="total"
+        >Total score: {{ totalScore }}</span
+      >
+      <div *ngIf="multiPlayer" class="total">
+        Total score:
+        <p>Player 1: {{ scores.get("player1") }}</p>
+        <p>Player 2: {{ scores.get("player2") }}</p>
+      </div>
+    </div>
+    <div class="container container-items">
+      <div
+        class="dice"
+        [ngClass]="{ clicked: letter.selected }"
+        (click)="captureLetter(letter)"
+        *ngFor="let letter of letterObjArr"
+      >
+        {{ letter.value }}
+      </div>
+    </div>
+
+    <div
+      *ngIf="!multiPlayer"
+      class="word-grid container-items"
+      [ngClass]="{ empty: wordArr.length === 0 }"
+    >
+      <p class="word" *ngFor="let word of wordArr">{{ word }}</p>
+    </div>
+    <div
+      *ngIf="multiPlayer"
+      class="word-grid container-items"
+      [ngClass]="{ empty: wordArr1.length === 0 }"
+    >
+      <p class="word" *ngFor="let word of wordArr1">{{ word }}</p>
+    </div>
+    <div
+      *ngIf="multiPlayer"
+      class="word-grid container-items"
+      [ngClass]="{ empty: wordArr2.length === 0 }"
+    >
+      <p class="word" *ngFor="let word of wordArr2">{{ word }}</p>
+    </div>
+  </div>
+  <div *ngIf="multiPlayer">
+    <button class="button player" [ngClass]="{'selected': activePlayer === 1}" (click)="switchActivePlayer(1)">
+      Player 1
+    </button>
+    <button class="button player" [ngClass]="{'selected': activePlayer === 2}" (click)="switchActivePlayer(2)">
+      Player 2
+    </button>
+  </div>
 </div>
-<div class="outer-container">
-  <div class="button-container">
-<button class="button" (click)="enterWord()">Enter</button>
-<button class="button" (click)="wordList()">Check score</button>
-<button class="button" (click)="refreshGrid()"> New game </button>
-<span class="total">Total score: {{ totalScore }}</span>
-</div>
-<div class="container container-items">
-  <div class="dice" [ngClass]="{'clicked': letter.selected}" (click)="captureLetter(letter)" *ngFor="let letter of letterObjArr">{{ letter.value }}</div> 
-</div>
-<div class="word-grid container-items" [ngClass]="{'empty': wordArr.length === 0}">
-  <p class="word" *ngFor="let word of wordArr">{{ word }}</p>
-</div>
-</div>
-</div>
-
-
-
-
-
-

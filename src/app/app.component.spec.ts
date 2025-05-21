@@ -71,7 +71,7 @@ expect(res).toBeTruthy();
 
  it('should compute the total score', () => {
   component.wordArr = ["the", "angle"];
-  component.wordList();
+  component.wordList(component.wordArr);
   expect(component.totalScore).toBe(3);
  });
 

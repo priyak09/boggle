@@ -78,11 +78,15 @@ h2 {
     transition: all 0.3s ease;
 }
 
-.button:hover {
+.selected, .button:hover {
      background-color: rgb(51, 90, 123);
     color: white;
      transform: translateY(-1px)
 
+}
+
+.player {
+    margin: 5px;
 }
 
 .word {
@@ -101,6 +105,7 @@ h2 {
 .empty {
     background-color: white;
 }
+
 
 
 
