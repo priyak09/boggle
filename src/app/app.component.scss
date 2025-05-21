@@ -1,0 +1,111 @@
+
+h2 {
+    text-align: center;
+    font-family: cursive;
+    color: rgb(51, 90, 123)
+}
+.wrapper {
+    place-items: center;
+    margin-top: 70px;
+}
+.outer-container {
+    display: flex;
+}
+
+.container {
+    display: inline-grid;
+    grid-template-columns: auto auto auto auto;
+    padding: 10px;
+
+}
+
+.container-items {
+    height: 260px;
+    background-color: aliceblue;
+    margin: 10px;
+}
+
+.dice {
+    padding: 17px;
+    background-color: rgb(75, 250, 250);
+    margin: 5px;
+    font-size: larger;
+    transition: all 0.3s ease;
+
+}
+
+.dice:hover {
+    background-color:rgb(3, 122, 122);
+    color: white;
+    transform: translateY(-3px)
+
+
+}
+
+//flex properties reference https://developer.mozilla.org/en-US/docs/Web/CSS/row-gap
+.word-grid {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+    width: 300px;
+     height: 0%;
+     min-height: 0px;
+    gap: 10px;
+}
+
+.clicked {
+     background-color:rgb(3, 122, 122);
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+    justify-content: center;
+}
+
+//reference for css hover effect https://www.w3schools.com/howto/howto_css_transition_hover.asp
+.button {
+    height: 35px;
+    background-color: rgba(200, 223, 243, 0.836);
+    color: black;
+    border-radius: 17px;
+    cursor: pointer;
+    border: none;
+    padding: 10px;
+    font: bold;
+    transition: all 0.3s ease;
+}
+
+.selected, .button:hover {
+     background-color: rgb(51, 90, 123);
+    color: white;
+     transform: translateY(-1px)
+
+}
+
+.player {
+    margin: 5px;
+}
+
+.word {
+    font-family: 'DM Sans';
+    font-size: medium;
+    
+}
+
+.total {
+    font-family: cursive;
+    font-size: medium;
+    margin-top: 5px;
+    margin-right: 5px;
+}
+
+.empty {
+    background-color: white;
+}
+
+
+
+
