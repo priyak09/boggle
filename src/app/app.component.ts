@@ -42,7 +42,7 @@ export class AppComponent implements OnInit{
 
   startTimer() {
     let endDate = new Date();
-    endDate.setMinutes(endDate.getMinutes() + 1);   //for 3 minutes timer
+    endDate.setMinutes(endDate.getMinutes() + 3);   //for 3 minutes timer
     endDate.setSeconds(endDate.getSeconds() + 2);   //to compensate for delay in loading the page
      this.timeLeft$ = interval(1000).pipe(
       map(x => this.calcDateDiff(endDate)),

@@ -1,21 +1,33 @@
 
+<div>
+  <h2>Boggle&nbsp;&#64;o&#64;</h2>
+</div>
+<div class="wrapper">
+  <div class="timer" *ngIf="(timeLeft$ | async) as t">
+  <i class="fa fa-clock-o" style="font-size:24px; margin-right: 4px;"></i>
+
+	
+	<span id="minutes"> {{t.minutesToDday}} </span> :
+ 	<span id="seconds"> {{t.secondsToDday}} </span>
+</div>
 <div class="outer-container">
+  <div class="button-container">
+<button class="button" (click)="enterWord()">Enter</button>
+<button class="button" (click)="wordList()">Check score</button>
+<button class="button" (click)="refreshGrid()"> New game </button>
+<span class="total">Total score: {{ totalScore }}</span>
+</div>
 <div class="container container-items">
   <div class="dice" [ngClass]="{'clicked': letter.selected}" (click)="captureLetter(letter)" *ngFor="let letter of letterObjArr">{{ letter.value }}</div> 
 </div>
-<div class="word-grid container-items">
+<div class="word-grid container-items" [ngClass]="{'empty': wordArr.length === 0}">
   <p class="word" *ngFor="let word of wordArr">{{ word }}</p>
 </div>
 </div>
-<button (click)="enterWord()">Enter</button>
-<button (click)="wordList()">Check score</button>
-<span>Total score: {{ totalScore }}</span>
-<button (click)="refreshGrid()"> New game </button>
-
-<div class="timer" *ngIf="(timeLeft$ | async) as t">
-	<h4> Count down timer </h4>
-	
-	<span id="minutes"> {{t.minutesToDday}} </span>Min
-	<span id="seconds"> {{t.secondsToDday}} </span>S
 </div>
+
+
+
+
+
 
